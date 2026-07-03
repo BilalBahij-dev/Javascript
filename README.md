@@ -82,6 +82,11 @@ This project solves that by bringing everything into one **visual, interactive, 
   <img src="js2.jpg" width="48%">
 </p>
 
+<p align="left">
+  <a href="https://bilalbahij-dev.github.io/Javascript/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Click%20Here-blue?style=for-the-badge">
+  </a>
+</p>
 ---
 
 ## 🛠️ How to Use
