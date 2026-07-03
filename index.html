@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript — Complete Visual Guide for Beginners</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* =============================================
+           ROOT VARIABLES & RESET
+        ============================================= */
+        :root {
+            --bg: #0a0a0f;
+            --surface: #111118;
+            --card: #16161f;
+            --border: #2a2a3a;
+            --accent: #f7c948;
+            --accent2: #ff6584;
+            --accent3: #43e97b;
+            --text: #e8e8f0;
+            --muted: #7070a0;
+            --code-bg: #0d0d18;
+            --box-a: #f7c948;
+            --box-b: #ff6584;
+            --box-c: #43e97b;
+            --box-d: #6c63ff;
+            --box-e: #38bdf8;
+            --js-yellow: #f7c948;
+            --js-blue: #6c63ff;
+            --js-pink: #ff6584;
+            --js-green: #43e97b;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        /* ===== HEADER / HERO ===== */
+        header {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 50%, rgba(247, 201, 72, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 80% 40%, rgba(255, 101, 132, 0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 50% at 50% 90%, rgba(67, 233, 123, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(247, 201, 72, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(247, 201, 72, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(247, 201, 72, 0.12);
+            border: 1px solid rgba(247, 201, 72, 0.3);
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: float 5s ease infinite;
+        }
+        .hero-badge i {
+            margin-right: 6px;
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 15vw, 13rem);
+            line-height: 0.9;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #fff 20%, var(--accent) 60%, var(--accent2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            color: var(--muted);
+            max-width: 540px;
+            line-height: 1.8;
+        }
+
+        .hero-js-demo {
+            display: grid;
+            grid-template-columns: repeat(4, 48px);
+            grid-template-rows: repeat(2, 48px);
+            gap: 0.5rem;
+            margin-top: 3rem;
+            animation: float 3s ease infinite;
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+        .hero-box {
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .hero-box:hover {
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+        .hero-box.js-yellow {
+            background: var(--js-yellow);
+            color: #111;
+        }
+        .hero-box.js-blue {
+            background: var(--js-blue);
+        }
+        .hero-box.js-pink {
+            background: var(--js-pink);
+        }
+        .hero-box.js-green {
+            background: var(--js-green);
+            color: #111;
+        }
+        .hero-box.span2 {
+            grid-column: span 2;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .scroll-hint .arrow {
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        /* ==== NAV ==== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            overflow-x: auto;
+        }
+        .nav-inner {
+            display: flex;
+            gap: 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            white-space: nowrap;
+        }
+        nav a {
+            display: inline-block;
+            padding: 1rem 1.1rem;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s, border-bottom-color 0.2s;
+            border-bottom: 2px solid transparent;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        nav a:hover {
+            color: var(--text);
+        }
+        nav a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* =============================================
+           MAIN LAYOUT
+        ============================================= */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem 8rem;
+        }
+
+        /* =============================================
+           SECTION STYLES
+        ============================================= */
+        .section {
+            margin-bottom: 7rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: 0.03em;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            line-height: 1;
+        }
+        .section>p {
+            color: var(--muted);
+            max-width: 640px;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        /* =============================================
+           CONCEPT CARDS
+        ============================================= */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .concept-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        .concept-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 0 10px 1px rgba(247, 201, 72, 0.15);
+        }
+        .concept-card .icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+        .concept-card h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+        .concept-card p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .concept-card p code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent3);
+            background: rgba(67, 233, 123, 0.1);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        /* =============================================
+           DEMO CARD
+        ============================================= */
+        .demo-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .demo-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .demo-label span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .demo-label code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent3);
+            background: rgba(67, 233, 123, 0.1);
+            padding: 0.2rem 0.7rem;
+            border-radius: 6px;
+        }
+        .demo-visual {
+            padding: 2rem;
+        }
+        .demo-visual .output-area {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            min-height: 40px;
+            overflow-x: auto;
+        }
+
+        /* =============================================
+           GRID CONTAINER (for demos)
+        ============================================= */
+        .grid-container {
+            min-height: 60px;
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            display: grid;
+            gap: 0.6rem;
+            background: rgba(108, 99, 255, 0.03);
+            position: relative;
+        }
+        .grid-container::before {
+            content: 'demo';
+            position: absolute;
+            top: -11px;
+            left: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            background: var(--card);
+            padding: 0 0.5rem;
+        }
+
+        .b {
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.7rem 1rem;
+            min-width: 44px;
+            min-height: 44px;
+            transition: transform 0.2s;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .b:hover {
+            transform: scale(1.05);
+        }
+        .b1 {
+            background: var(--box-a);
+            color: #111;
+        }
+        .b2 {
+            background: var(--box-b);
+        }
+        .b3 {
+            background: var(--box-c);
+            color: #111;
+        }
+        .b4 {
+            background: var(--box-d);
+        }
+        .b5 {
+            background: var(--box-e);
+            color: #111;
+        }
+        .b6 {
+            background: #c084fc;
+        }
+        .b7 {
+            background: #fb923c;
+            color: #111;
+        }
+
+        /* =============================================
+           CODE BLOCK
+        ============================================= */
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+        .code-block pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text);
+            white-space: pre;
+            margin: 0;
+        }
+        .kw {
+            color: #c678dd;
+        }
+        .prop {
+            color: #61afef;
+        }
+        .val {
+            color: #98c379;
+        }
+        .cmt {
+            color: #5c6370;
+            font-style: italic;
+        }
+        .sel {
+            color: #e06c75;
+        }
+        .str {
+            color: var(--box-d);
+        }
+        .fn {
+            color: #61afef;
+        }
+        .num {
+            color: #d19a66;
+        }
+        .bool {
+            color: #d19a66;
+        }
+        .code-block .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+        }
+        .code-block .copy-btn:hover {
+            background: rgba(247, 201, 72, 0.15);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* =============================================
+           PROPERTY TABLE
+        ============================================= */
+        .prop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.88rem;
+        }
+        .prop-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .prop-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(42, 42, 58, 0.5);
+            color: var(--muted);
+            vertical-align: top;
+        }
+        .prop-table td:first-child {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent3);
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+        .prop-table tr:hover td {
+            background: rgba(108, 99, 255, 0.04);
+        }
+
+        /* =============================================
+           DEMO GRID
+        ============================================= */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* =============================================
+           VISUAL DIAGRAMS
+        ============================================= */
+        .diagram-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        .diagram-box .diagram-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .diagram-box .diagram-title i {
+            margin-right: 6px;
+            color: var(--accent);
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+        .diagram-flow .node {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .diagram-flow .node.accent {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .diagram-flow .node.green {
+            border-color: var(--accent3);
+            color: var(--accent3);
+        }
+        .diagram-flow .node.pink {
+            border-color: var(--accent2);
+            color: var(--accent2);
+        }
+        .diagram-flow .node.blue {
+            border-color: var(--box-d);
+            color: var(--box-d);
+        }
+        .diagram-flow .arrow-symbol {
+            color: var(--muted);
+            font-size: 1.2rem;
+        }
+
+        /* Memory boxes */
+        .memory-diagram {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+        .memory-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            min-width: 80px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        .memory-box .mem-label {
+            color: var(--muted);
+            font-size: 0.65rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .memory-box .mem-value {
+            color: var(--accent3);
+            font-size: 1rem;
+        }
+        .memory-box.highlight {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(247, 201, 72, 0.1);
+        }
+
+        /* =============================================
+           CHEAT SHEET
+        ============================================= */
+        .cheat-sheet {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .cheat-group {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+        .cheat-group h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .cheat-group h3 i {
+            margin-right: 6px;
+        }
+        .cheat-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+        }
+        .cheat-row .cheat-prop {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent3);
+            min-width: 120px;
+            font-size: 0.78rem;
+        }
+        .cheat-row .cheat-desc {
+            color: var(--muted);
+        }
+
+        /* =============================================
+           RESPONSIVE
+        ============================================= */
+        @media (max-width: 600px) {
+            main {
+                padding: 3rem 1.2rem 5rem;
+            }
+            .demo-visual {
+                padding: 1.2rem;
+            }
+            .grid-container {
+                padding: 0.7rem;
+                gap: 0.4rem;
+            }
+            .b {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.7rem;
+            }
+            nav a {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.7rem;
+            }
+            .diagram-flow {
+                gap: 0.4rem;
+            }
+            .diagram-flow .node {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+            .cheat-row .cheat-prop {
+                min-width: 80px;
+                font-size: 0.7rem;
+            }
+            .hero-js-demo {
+                grid-template-columns: repeat(4, 36px);
+                grid-template-rows: repeat(2, 36px);
+                gap: 0.4rem;
+            }
+            .hero-box {
+                font-size: 0.55rem;
+            }
+        }
+
+        /* =============================================
+           FOOTER
+        ============================================= */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        footer span {
+            color: var(--accent2);
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* =============================================
+           INTERACTIVE PLAYGROUND
+        ============================================= */
+        .playground {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        .playground .pg-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1.2rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+        .playground .pg-header i {
+            margin-right: 4px;
+        }
+        .playground .pg-body {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .playground textarea {
+            width: 100%;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--text);
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+        }
+        .playground textarea:focus {
+            border-color: var(--accent);
+        }
+        .playground .pg-output {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent3);
+            min-height: 40px;
+        }
+        .playground .pg-btn {
+            background: rgba(247, 201, 72, 0.12);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 1.2rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+        .playground .pg-btn:hover {
+            background: rgba(247, 201, 72, 0.2);
+            box-shadow: 0 0 20px rgba(247, 201, 72, 0.1);
+        }
+        .playground .pg-btn i {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =============================================
+         HERO
+    ============================================= -->
+    <header>
+        <div class="grid-bg"></div>
+        <div class="hero-badge"><i class="fas fa-code"></i> JavaScript Language</div>
+        <h1>JAVASCRIPT</h1>
+        <p>The complete visual guide to mastering JavaScript — from fundamentals to advanced concepts, explained with live interactive examples.</p>
+
+        <!-- Mini JS demo in hero -->
+        <div class="hero-js-demo">
+            <div class="hero-box js-yellow span2">let</div>
+            <div class="hero-box js-blue">const</div>
+            <div class="hero-box js-pink">fn</div>
+            <div class="hero-box js-green"><i class="fas fa-arrow-right"></i></div>
+            <div class="hero-box js-blue">{ }</div>
+            <div class="hero-box js-pink">[ ]</div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>scroll to learn</span>
+            <div class="arrow"></div>
+        </div>
+    </header>
+
+    <!-- ==== NAV === -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#intro">01 Intro</a>
+            <a href="#variables">02 Vars</a>
+            <a href="#datatypes">03 Types</a>
+            <a href="#operators">04 Ops</a>
+            <a href="#strings">05 Strings</a>
+            <a href="#numbers">06 Numbers</a>
+            <a href="#math">07 Math</a>
+            <a href="#arrays">08 Arrays</a>
+            <a href="#objects">09 Objects</a>
+            <a href="#functions">10 Functions</a>
+            <a href="#scope">11 Scope</a>
+            <a href="#closures">12 Closures</a>
+            <a href="#this">13 this</a>
+            <a href="#loops">14 Loops</a>
+            <a href="#conditionals">15 Cond</a>
+            <a href="#errorhandling">16 Errors</a>
+            <a href="#classes">17 Classes</a>
+            <a href="#dom">18 DOM</a>
+            <a href="#events">19 Events</a>
+            <a href="#timing">20 Timing</a>
+            <a href="#async">21 Async</a>
+            <a href="#promises">22 Promises</a>
+            <a href="#fetch">23 Fetch</a>
+            <a href="#storage">24 Storage</a>
+            <a href="#modules">25 Modules</a>
+            <a href="#regex">26 Regex</a>
+            <a href="#es6">27 ES6+</a>
+            <a href="#advanced">28 Advanced</a>
+            <a href="#browserapis">29 Browser APIs</a>
+            <a href="#performance">30 Perf</a>
+            <a href="#cheatsheet">31 Cheat</a>
+        </div>
+    </nav>
+
+    <!-- =============================================
+         MAIN
+    ============================================= -->
+    <main>
+
+        <!-- ============================================================
+         SECTION 01 — INTRODUCTION
+        ============================================================ -->
+        <section class="section" id="intro">
+            <div class="section-num">01 / Introduction</div>
+            <h2>What Is JavaScript?</h2>
+            <p>JavaScript is a <strong>high-level, interpreted</strong> programming language that makes web pages interactive. It runs in the browser (client-side) and on servers (Node.js). This guide will take you from zero to hero with visual explanations and live examples.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Live & Dynamic</h3>
+                    <p>JavaScript executes in real-time, responding to user clicks, typing, and other events instantly.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-brain"></i></div>
+                    <h3>Versatile</h3>
+                    <p>Runs on both the browser and server (Node.js). Used for frontend, backend, mobile, and desktop apps.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-cubes"></i></div>
+                    <h3>Ecosystem</h3>
+                    <p>Millions of packages via npm. Frameworks like React, Vue, Angular, and libraries for every need.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Event-Driven</h3>
+                    <p>JavaScript handles events like clicks, keypresses, and network responses using an event-driven model.</p>
+                </div>
+            </div>
+
+            <!-- Diagram: JS Engine -->
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-cogs"></i> How JavaScript Runs</div>
+                <div class="diagram-flow">
+                    <div class="node accent">Your Code</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node blue">Parser</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node green">AST</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node pink">Interpreter</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node accent">Output</div>
+                </div>
+                <p style="color:var(--muted);font-size:0.85rem;text-align:center;margin-top:0.8rem;">The browser parses your code, builds an Abstract Syntax Tree (AST), then interprets and executes it.</p>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Your first JavaScript — say hello!</span>
+<span class="kw">console</span>.<span class="fn">log</span>(<span class="str">"Hello, World!"</span>);
+
+<span class="cmt">// This prints "Hello, World!" to the console.</span>
+<span class="cmt">// Try it — open your browser's Dev Tools (F12) and paste this in.</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 02 — VARIABLES
+        ============================================================ -->
+        <section class="section" id="variables">
+            <div class="section-num">02 / Variables</div>
+            <h2>Variables: <span style="color:var(--accent3);">let</span> · <span style="color:var(--accent2);">const</span> · <span style="color:var(--box-d);">var</span></h2>
+            <p>Variables are named containers for storing data. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">let</code> for values that change, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">const</code> for values that stay constant, and avoid <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">var</code> in modern code.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-box"></i></div>
+                    <h3>let — mutable</h3>
+                    <p>Can be reassigned. Block-scoped. Use for counters, accumulators, and values that change.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-lock"></i></div>
+                    <h3>const — immutable</h3>
+                    <p>Cannot be reassigned. Block-scoped. Use for constants, configuration, and function references.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>var — legacy</h3>
+                    <p>Function-scoped. Avoid in modern code. Can lead to unexpected bugs due to hoisting.</p>
+                </div>
+            </div>
+
+            <!-- Memory diagram -->
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-brain"></i> Memory Boxes</div>
+                <div class="memory-diagram">
+                    <div class="memory-box highlight">
+                        <span class="mem-label">let</span>
+                        <span class="mem-value">name = "Alice"</span>
+                    </div>
+                    <div class="memory-box">
+                        <span class="mem-label">const</span>
+                        <span class="mem-value">age = 25</span>
+                    </div>
+                    <div class="memory-box">
+                        <span class="mem-label">let</span>
+                        <span class="mem-value">isReady = true</span>
+                    </div>
+                </div>
+                <p style="color:var(--muted);font-size:0.8rem;text-align:center;">Each variable holds a value in memory. <code style="color:var(--accent);">let</code> and <code style="color:var(--accent);">const</code> are block-scoped.</p>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Live Variable Demo</span>
+                    <code>let · const</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-pen"></i> try it yourself</span>
+                            <span style="color:var(--muted);font-size:0.65rem;">edit the code → click run</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="varsPlayground" rows="5">// Variables in action
+                                let name = "Alice";
+                                const age = 25;
+                                let city = "Berlin";
+
+                                name = "Bob"; // ✅ allowed
+                                // age = 30;   // ❌ TypeError
+
+                                console.log(name, age, city);</textarea>
+                            <button class="pg-btn" onclick="runVarsPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="varsOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Using let — can be reassigned</span>
+<span class="kw">let</span> <span class="sel">score</span> = <span class="num">10</span>;
+<span class="sel">score</span> = <span class="num">20</span>; <span class="cmt">// ✅ works</span>
+
+<span class="cmt">// Using const — cannot be reassigned</span>
+<span class="kw">const</span> <span class="sel">PI</span> = <span class="num">3.14159</span>;
+<span class="cmt">// PI = 3.14;   // ❌ TypeError</span>
+
+<span class="cmt">// Using var — function-scoped (avoid)</span>
+<span class="kw">var</span> <span class="sel">oldSchool</span> = <span class="str">"legacy"</span>;</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 03 — DATA TYPES
+        ============================================================ -->
+        <section class="section" id="datatypes">
+            <div class="section-num">03 / Data Types</div>
+            <h2>Data Types</h2>
+            <p>JavaScript has 8 data types: 7 primitive types (String, Number, Boolean, Undefined, Null, BigInt, Symbol) and 1 reference type (Object).</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-pen"></i></div>
+                    <h3>String</h3>
+                    <p>Text: <code style="color:var(--accent3);">"hello"</code>, <code style="color:var(--accent3);">'world'</code>, <code style="color:var(--accent3);">`template`</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-hashtag"></i></div>
+                    <h3>Number</h3>
+                    <p>Integers and floats: <code style="color:var(--accent3);">42</code>, <code style="color:var(--accent3);">3.14</code>, <code style="color:var(--accent3);">-7</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Boolean</h3>
+                    <p>True or false: <code style="color:var(--accent3);">true</code>, <code style="color:var(--accent3);">false</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-question-circle"></i></div>
+                    <h3>Undefined</h3>
+                    <p>Variable declared but not assigned: <code style="color:var(--accent3);">undefined</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-ban"></i></div>
+                    <h3>Null</h3>
+                    <p>Intentional absence: <code style="color:var(--accent3);">null</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h3>Object</h3>
+                    <p>Collections: <code style="color:var(--accent3);">{ }</code>, <code style="color:var(--accent3);">[ ]</code>, <code style="color:var(--accent3);">function</code></p>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Type Checker</span>
+                    <code>typeof</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-search"></i> see types in action</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="typesPlayground" rows="6">// Check data types with typeof
+                                console.log(typeof "hello");    // string
+                                console.log(typeof 42);         // number
+                                console.log(typeof true);       // boolean
+                                console.log(typeof undefined);  // undefined
+                                console.log(typeof null);       // object (⚠️ legacy)
+                                console.log(typeof {});         // object
+                                console.log(typeof []);         // object</textarea>
+                            <button class="pg-btn" onclick="runTypesPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="typesOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 04 — OPERATORS
+        ============================================================ -->
+        <section class="section" id="operators">
+            <div class="section-num">04 / Operators</div>
+            <h2>Operators</h2>
+            <p>Operators perform actions on values. JavaScript has arithmetic, comparison, logical, assignment, and more.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>Arithmetic</span><code>+ - * / % **</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <div>10 + 3 = <span style="color:var(--accent3);" id="arith1">13</span></div>
+                            <div>10 - 3 = <span style="color:var(--accent3);" id="arith2">7</span></div>
+                            <div>10 * 3 = <span style="color:var(--accent3);" id="arith3">30</span></div>
+                            <div>10 / 3 = <span style="color:var(--accent3);" id="arith4">3.33</span></div>
+                            <div>10 % 3 = <span style="color:var(--accent3);" id="arith5">1</span></div>
+                            <div>10 ** 3 = <span style="color:var(--accent3);" id="arith6">1000</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-label"><span>Comparison</span><code>== === != !== &lt; &gt; &lt;= &gt;=</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <div>5 == "5" → <span style="color:var(--accent3);">true</span> (loose)</div>
+                            <div>5 === "5" → <span style="color:var(--accent2);">false</span> (strict)</div>
+                            <div>5 !== "5" → <span style="color:var(--accent3);">true</span></div>
+                            <div>10 > 5 → <span style="color:var(--accent3);">true</span></div>
+                            <div>10 &lt;= 5 → <span style="color:var(--accent2);">false</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-label"><span>Logical</span><code>&amp;&amp; || !</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <div>true &amp;&amp; true → <span style="color:var(--accent3);">true</span></div>
+                            <div>true &amp;&amp; false → <span style="color:var(--accent2);">false</span></div>
+                            <div>true || false → <span style="color:var(--accent3);">true</span></div>
+                            <div>!true → <span style="color:var(--accent2);">false</span></div>
+                            <div>!false → <span style="color:var(--accent3);">true</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-label"><span>Nullish &amp; Optional Chaining</span><code>?? ?.</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <div>null ?? "default" → <span style="color:var(--accent3);">"default"</span></div>
+                            <div>0 ?? "default" → <span style="color:var(--accent3);">0</span></div>
+                            <div>obj?.prop → <span style="color:var(--accent3);">undefined</span> if obj is null</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Arithmetic</span>
+<span class="num">10</span> + <span class="num">3</span>; <span class="cmt">// 13</span>
+<span class="num">10</span> ** <span class="num">3</span>; <span class="cmt">// 1000 (exponent)</span>
+
+<span class="cmt">// Comparison — always use === (strict equality)</span>
+<span class="num">5</span> === <span class="str">"5"</span>; <span class="cmt">// false</span>
+<span class="num">5</span> == <span class="str">"5"</span>;  <span class="cmt">// true (loose — avoid)</span>
+
+<span class="cmt">// Logical</span>
+<span class="kw">true</span> && <span class="kw">false</span>; <span class="cmt">// false</span>
+<span class="kw">true</span> || <span class="kw">false</span>; <span class="cmt">// true</span>
+
+<span class="cmt">// Nullish coalescing — only null/undefined trigger default</span>
+<span class="kw">null</span> ?? <span class="str">"default"</span>; <span class="cmt">// "default"</span>
+<span class="num">0</span> ?? <span class="str">"default"</span>;   <span class="cmt">// 0</span>
+
+<span class="cmt">// Optional chaining — safely access nested props</span>
+<span class="kw">const</span> user = <span class="kw">null</span>;
+user?.name; <span class="cmt">// undefined (no error!)</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 05 — STRINGS
+        ============================================================ -->
+        <section class="section" id="strings">
+            <div class="section-num">05 / Strings</div>
+            <h2>Strings</h2>
+            <p>Strings represent text. JavaScript provides many useful methods to manipulate them.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>.length</span><code>"hello".length</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "hello".length → <span style="color:var(--accent3);">5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>.toUpperCase()</span><code>"hello".toUpperCase()</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "hello".toUpperCase() → <span style="color:var(--accent3);">"HELLO"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>.slice()</span><code>"hello world".slice(0,5)</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "hello world".slice(0,5) → <span style="color:var(--accent3);">"hello"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>.replace()</span><code>"hello".replace("l","w")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "hello".replace("l","w") → <span style="color:var(--accent3);">"hewlo"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>.includes()</span><code>"hello".includes("ell")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "hello".includes("ell") → <span style="color:var(--accent3);">true</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>.split()</span><code>"a,b,c".split(",")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            "a,b,c".split(",") → <span style="color:var(--accent3);">["a","b","c"]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="kw">const</span> <span class="sel">str</span> = <span class="str">"JavaScript"</span>;
+
+<span class="sel">str</span>.<span class="fn">length</span>;               <span class="cmt">// 10</span>
+<span class="sel">str</span>.<span class="fn">toUpperCase</span>();        <span class="cmt">// "JAVASCRIPT"</span>
+<span class="sel">str</span>.<span class="fn">toLowerCase</span>();        <span class="cmt">// "javascript"</span>
+<span class="sel">str</span>.<span class="fn">slice</span>(<span class="num">0</span>, <span class="num">4</span>);          <span class="cmt">// "Java"</span>
+<span class="sel">str</span>.<span class="fn">replace</span>(<span class="str">"Script"</span>, <span class="str">""</span>); <span class="cmt">// "Java"</span>
+<span class="sel">str</span>.<span class="fn">includes</span>(<span class="str">"Script"</span>);   <span class="cmt">// true</span>
+<span class="sel">str</span>.<span class="fn">startsWith</span>(<span class="str">"Java"</span>);   <span class="cmt">// true</span>
+<span class="sel">str</span>.<span class="fn">endsWith</span>(<span class="str">"Script"</span>); <span class="cmt">// true</span>
+<span class="sel">str</span>.<span class="fn">split</span>(<span class="str">""</span>);             <span class="cmt">// ["J","a","v","a",...]</span>
+<span class="sel">str</span>.<span class="fn">trim</span>();               <span class="cmt">// removes whitespace</span>
+<span class="sel">str</span>.<span class="fn">repeat</span>(<span class="num">2</span>);            <span class="cmt">// "JavaScriptJavaScript"</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 06 — NUMBERS
+        ============================================================ -->
+        <section class="section" id="numbers">
+            <div class="section-num">06 / Numbers</div>
+            <h2>Numbers</h2>
+            <p>JavaScript has one number type (IEEE 754 double precision). Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">Number()</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">parseInt()</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">parseFloat()</code> for conversions.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>parseInt</span><code>parseInt("42.7")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            parseInt("42.7") → <span style="color:var(--accent3);">42</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>parseFloat</span><code>parseFloat("42.7")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            parseFloat("42.7") → <span style="color:var(--accent3);">42.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>toFixed</span><code>(3.14159).toFixed(2)</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            (3.14159).toFixed(2) → <span style="color:var(--accent3);">"3.14"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>isNaN</span><code>isNaN("hello")</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            isNaN("hello") → <span style="color:var(--accent3);">true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Number conversion</span>
+<span class="fn">Number</span>(<span class="str">"42"</span>);      <span class="cmt">// 42</span>
+<span class="fn">parseInt</span>(<span class="str">"42.7"</span>);  <span class="cmt">// 42</span>
+<span class="fn">parseFloat</span>(<span class="str">"42.7"</span>);<span class="cmt">// 42.7</span>
+
+<span class="cmt">// Formatting</span>
+(<span class="num">3.14159</span>).<span class="fn">toFixed</span>(<span class="num">2</span>); <span class="cmt">// "3.14"</span>
+(<span class="num">123.456</span>).<span class="fn">toPrecision</span>(<span class="num">4</span>); <span class="cmt">// "123.5"</span>
+
+<span class="cmt">// Checking</span>
+<span class="fn">isNaN</span>(<span class="str">"hello"</span>); <span class="cmt">// true</span>
+<span class="fn">isFinite</span>(<span class="num">42</span>);    <span class="cmt">// true</span>
+<span class="fn">isFinite</span>(<span class="kw">Infinity</span>); <span class="cmt">// false</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 07 — MATH
+        ============================================================ -->
+        <section class="section" id="math">
+            <div class="section-num">07 / Math Object</div>
+            <h2>Math Object</h2>
+            <p>The built-in <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">Math</code> object provides mathematical constants and functions.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>Math.random()</span><code>0–1</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            Math.random() → <span style="color:var(--accent3);" id="randomVal">0.xxx</span>
+                            <button class="pg-btn" style="margin-top:0.5rem;padding:0.2rem 0.8rem;font-size:0.7rem;" onclick="document.getElementById('randomVal').textContent = Math.random().toFixed(4);"><i class="fas fa-dice"></i> roll</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>Math.floor / ceil</span><code>rounding</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            Math.floor(3.7) → <span style="color:var(--accent3);">3</span><br>
+                            Math.ceil(3.2) → <span style="color:var(--accent3);">4</span><br>
+                            Math.round(3.5) → <span style="color:var(--accent3);">4</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>Math.pow / sqrt</span><code>power &amp; root</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            Math.pow(2, 3) → <span style="color:var(--accent3);">8</span><br>
+                            Math.sqrt(16) → <span style="color:var(--accent3);">4</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>Math.min / max</span><code>extreme values</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            Math.min(3, 7, 1, 9) → <span style="color:var(--accent3);">1</span><br>
+                            Math.max(3, 7, 1, 9) → <span style="color:var(--accent3);">9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="fn">Math</span>.<span class="fn">random</span>();          <span class="cmt">// 0.0 – 0.999...</span>
+<span class="fn">Math</span>.<span class="fn">floor</span>(<span class="num">3.7</span>);        <span class="cmt">// 3</span>
+<span class="fn">Math</span>.<span class="fn">ceil</span>(<span class="num">3.2</span>);         <span class="cmt">// 4</span>
+<span class="fn">Math</span>.<span class="fn">round</span>(<span class="num">3.5</span>);        <span class="cmt">// 4</span>
+<span class="fn">Math</span>.<span class="fn">pow</span>(<span class="num">2</span>, <span class="num">3</span>);          <span class="cmt">// 8</span>
+<span class="fn">Math</span>.<span class="fn">sqrt</span>(<span class="num">16</span>);          <span class="cmt">// 4</span>
+<span class="fn">Math</span>.<span class="fn">min</span>(<span class="num">3</span>, <span class="num">7</span>, <span class="num">1</span>, <span class="num">9</span>); <span class="cmt">// 1</span>
+<span class="fn">Math</span>.<span class="fn">max</span>(<span class="num">3</span>, <span class="num">7</span>, <span class="num">1</span>, <span class="num">9</span>); <span class="cmt">// 9</span>
+<span class="fn">Math</span>.<span class="fn">PI</span>;                 <span class="cmt">// 3.14159...</span>
+<span class="fn">Math</span>.<span class="fn">sin</span>(<span class="num">0</span>);            <span class="cmt">// 0</span>
+<span class="fn">Math</span>.<span class="fn">cos</span>(<span class="num">0</span>);            <span class="cmt">// 1</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 08 — ARRAYS
+        ============================================================ -->
+        <section class="section" id="arrays">
+            <div class="section-num">08 / Arrays</div>
+            <h2>Arrays</h2>
+            <p>Arrays are ordered lists of values. They can hold any data type and come with powerful methods for iteration, transformation, and searching.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-plus-circle"></i></div>
+                    <h3>push / pop</h3>
+                    <p>Add/remove from end. <code style="color:var(--accent3);">arr.push(5)</code>, <code style="color:var(--accent3);">arr.pop()</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-minus-circle"></i></div>
+                    <h3>shift / unshift</h3>
+                    <p>Add/remove from start. <code style="color:var(--accent3);">arr.unshift(1)</code>, <code style="color:var(--accent3);">arr.shift()</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-search"></i></div>
+                    <h3>map / filter</h3>
+                    <p>Transform and select. <code style="color:var(--accent3);">arr.map(x => x*2)</code>, <code style="color:var(--accent3);">arr.filter(x => x>5)</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>reduce</h3>
+                    <p>Accumulate values. <code style="color:var(--accent3);">arr.reduce((a,b) => a+b, 0)</code></p>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Array Methods in Action</span>
+                    <code>map · filter · reduce</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-play"></i> live array playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="arrayPlayground" rows="6">const numbers = [1, 2, 3, 4, 5];
+
+                                const doubled = numbers.map(n => n * 2);
+                                const evens = numbers.filter(n => n % 2 === 0);
+                                const sum = numbers.reduce((acc, n) => acc + n, 0);
+
+                                console.log(doubled, evens, sum);</textarea>
+                            <button class="pg-btn" onclick="runArrayPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="arrayOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="kw">const</span> <span class="sel">arr</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="cmt">// Mutating</span>
+<span class="sel">arr</span>.<span class="fn">push</span>(<span class="num">6</span>);     <span class="cmt">// [1,2,3,4,5,6]</span>
+<span class="sel">arr</span>.<span class="fn">pop</span>();        <span class="cmt">// [1,2,3,4,5]</span>
+<span class="sel">arr</span>.<span class="fn">shift</span>();      <span class="cmt">// [2,3,4,5]</span>
+<span class="sel">arr</span>.<span class="fn">unshift</span>(<span class="num">0</span>); <span class="cmt">// [0,2,3,4,5]</span>
+
+<span class="cmt">// Iteration & Transformation</span>
+<span class="sel">arr</span>.<span class="fn">map</span>(<span class="sel">n</span> => <span class="sel">n</span> * <span class="num">2</span>);      <span class="cmt">// [0,4,6,8,10]</span>
+<span class="sel">arr</span>.<span class="fn">filter</span>(<span class="sel">n</span> => <span class="sel">n</span> > <span class="num">2</span>);   <span class="cmt">// [3,4,5]</span>
+<span class="sel">arr</span>.<span class="fn">find</span>(<span class="sel">n</span> => <span class="sel">n</span> === <span class="num">3</span>);   <span class="cmt">// 3</span>
+<span class="sel">arr</span>.<span class="fn">reduce</span>((<span class="sel">a</span>, <span class="sel">b</span>) => <span class="sel">a</span> + <span class="sel">b</span>, <span class="num">0</span>); <span class="cmt">// 14</span>
+<span class="sel">arr</span>.<span class="fn">includes</span>(<span class="num">3</span>);        <span class="cmt">// true</span>
+<span class="sel">arr</span>.<span class="fn">indexOf</span>(<span class="num">3</span>);        <span class="cmt">// 2</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 09 — OBJECTS
+        ============================================================ -->
+        <section class="section" id="objects">
+            <div class="section-num">09 / Objects</div>
+            <h2>Objects</h2>
+            <p>Objects store key-value pairs. They are the foundation of JavaScript — everything is an object (or can be treated as one).</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Object Demo</span>
+                    <code>{ key: value }</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-cubes"></i> object playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="objectPlayground" rows="6">const user = {
+                                name: "Alice",
+                                age: 25,
+                                greet() { return `Hi, I'm ${this.name}`; }
+                            };
+
+                                console.log(user.name);
+                                console.log(user.greet());
+                                // Destructuring
+                                const { name, age } = user;
+                                console.log(name, age);</textarea>
+                            <button class="pg-btn" onclick="runObjectPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="objectOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="kw">const</span> <span class="sel">person</span> = {
+  <span class="prop">name</span>: <span class="str">"Alice"</span>,
+  <span class="prop">age</span>: <span class="num">25</span>,
+  <span class="prop">greet</span>() {
+    <span class="kw">return</span> <span class="str">`Hello, I'm ${this.name}`</span>;
+  }
+};
+
+<span class="cmt">// Access</span>
+<span class="sel">person</span>.<span class="prop">name</span>;          <span class="cmt">// "Alice"</span>
+<span class="sel">person</span>[<span class="str">"age"</span>];        <span class="cmt">// 25</span>
+
+<span class="cmt">// Destructuring</span>
+<span class="kw">const</span> { <span class="prop">name</span>, <span class="prop">age</span> } = <span class="sel">person</span>;
+
+<span class="cmt">// Spread</span>
+<span class="kw">const</span> <span class="sel">clone</span> = { ...<span class="sel">person</span>, <span class="prop">city</span>: <span class="str">"Paris"</span> };
+
+<span class="cmt">// Rest</span>
+<span class="kw">const</span> { <span class="prop">name</span>, ...<span class="sel">rest</span> } = <span class="sel">person</span>;</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 10 — FUNCTIONS
+        ============================================================ -->
+        <section class="section" id="functions">
+            <div class="section-num">10 / Functions</div>
+            <h2>Functions</h2>
+            <p>Functions are reusable blocks of code. They can take parameters, return values, and be assigned to variables.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Function Declaration</h3>
+                    <p><code style="color:var(--accent3);">function add(a,b) { return a+b; }</code> — hoisted.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-arrow-right"></i></div>
+                    <h3>Arrow Function</h3>
+                    <p><code style="color:var(--accent3);">const add = (a,b) => a+b;</code> — concise, lexical <code style="color:var(--accent3);">this</code>.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Callback</h3>
+                    <p>A function passed as an argument: <code style="color:var(--accent3);">arr.map(x => x*2)</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Higher-Order</h3>
+                    <p>A function that returns another function or takes one as an argument.</p>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Function Demo</span>
+                    <code>declaration · arrow · callback</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-cog"></i> function playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="functionPlayground" rows="7">// Function declaration
+                                function multiply(a, b) { return a * b; }
+
+                                // Arrow function
+                                const divide = (a, b) => a / b;
+
+                                // Callback
+                                const result = [1, 2, 3].map(n => n * 10);
+
+                                console.log(multiply(3, 4), divide(10, 2), result);</textarea>
+                            <button class="pg-btn" onclick="runFunctionPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="functionOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Function Declaration — hoisted</span>
+<span class="kw">function</span> <span class="sel">add</span>(<span class="sel">a</span>, <span class="sel">b</span>) {
+  <span class="kw">return</span> <span class="sel">a</span> + <span class="sel">b</span>;
+}
+
+<span class="cmt">// Function Expression</span>
+<span class="kw">const</span> <span class="sel">subtract</span> = <span class="kw">function</span>(<span class="sel">a</span>, <span class="sel">b</span>) {
+  <span class="kw">return</span> <span class="sel">a</span> - <span class="sel">b</span>;
+};
+
+<span class="cmt">// Arrow Function — concise, lexical this</span>
+<span class="kw">const</span> <span class="sel">multiply</span> = (<span class="sel">a</span>, <span class="sel">b</span>) => <span class="sel">a</span> * <span class="sel">b</span>;
+
+<span class="cmt">// Callback — function passed to another function</span>
+[<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].<span class="fn">map</span>(<span class="sel">n</span> => <span class="sel">n</span> * <span class="num">2</span>); <span class="cmt">// [2,4,6]</span>
+
+<span class="cmt">// Higher-Order Function — returns a function</span>
+<span class="kw">function</span> <span class="sel">createMultiplier</span>(<span class="sel">factor</span>) {
+  <span class="kw">return</span> (<span class="sel">value</span>) => <span class="sel">value</span> * <span class="sel">factor</span>;
+}
+<span class="kw">const</span> <span class="sel">double</span> = <span class="fn">createMultiplier</span>(<span class="num">2</span>);
+<span class="sel">double</span>(<span class="num">5</span>); <span class="cmt">// 10</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 11 — SCOPE
+        ============================================================ -->
+        <section class="section" id="scope">
+            <div class="section-num">11 / Scope</div>
+            <h2>Scope</h2>
+            <p>Scope determines where variables are accessible. JavaScript has global, function, and block scope.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-globe"></i> Scope Chain</div>
+                <div class="memory-diagram">
+                    <div class="memory-box highlight" style="border-color:var(--accent);">
+                        <span class="mem-label"><i class="fas fa-globe"></i> Global</span>
+                        <span class="mem-value">window, document</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--box-d);">
+                        <span class="mem-label"><i class="fas fa-box"></i> Function</span>
+                        <span class="mem-value">local vars</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--accent3);">
+                        <span class="mem-label"><i class="fas fa-cubes"></i> Block</span>
+                        <span class="mem-value">{ let, const }</span>
+                    </div>
+                </div>
+                <p style="color:var(--muted);font-size:0.8rem;text-align:center;">Inner scopes can access outer scopes, but not vice versa.</p>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Global scope</span>
+<span class="kw">const</span> <span class="sel">globalVar</span> = <span class="str">"I'm global"</span>;
+
+<span class="kw">function</span> <span class="sel">myFunction</span>() {
+  <span class="cmt">// Function scope</span>
+  <span class="kw">const</span> <span class="sel">localVar</span> = <span class="str">"I'm local"</span>;
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">globalVar</span>); <span class="cmt">// ✅ accessible</span>
+
+  <span class="kw">if</span> (<span class="kw">true</span>) {
+    <span class="cmt">// Block scope</span>
+    <span class="kw">let</span> <span class="sel">blockVar</span> = <span class="str">"I'm block-scoped"</span>;
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">localVar</span>);  <span class="cmt">// ✅ accessible</span>
+  }
+  <span class="cmt">// console.log(blockVar); // ❌ ReferenceError</span>
+}
+<span class="cmt">// console.log(localVar); // ❌ ReferenceError</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 12 — CLOSURES
+        ============================================================ -->
+        <section class="section" id="closures">
+            <div class="section-num">12 / Closures</div>
+            <h2>Closures</h2>
+            <p>A closure is a function that remembers its lexical scope even when the function is executed outside that scope. Closures are created every time a function is defined.</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Closure Demo</span>
+                    <code>function factory</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-link"></i> closure playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="closurePlayground" rows="7">function createCounter() {
+                                let count = 0;
+                                return function() {
+                                    count++;
+                                    return count;
+                                };
+                            }
+
+                            const counter = createCounter();
+                            console.log(counter()); // 1
+                            console.log(counter()); // 2
+                            console.log(counter()); // 3</textarea>
+                            <button class="pg-btn" onclick="runClosurePlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="closureOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Closure — the inner function "remembers" count</span>
+<span class="kw">function</span> <span class="sel">createCounter</span>() {
+  <span class="kw">let</span> <span class="sel">count</span> = <span class="num">0</span>;
+  <span class="kw">return</span> <span class="kw">function</span>() {
+    <span class="sel">count</span>++;
+    <span class="kw">return</span> <span class="sel">count</span>;
+  };
+}
+
+<span class="kw">const</span> <span class="sel">counter</span> = <span class="fn">createCounter</span>();
+<span class="sel">counter</span>(); <span class="cmt">// 1</span>
+<span class="sel">counter</span>(); <span class="cmt">// 2</span>
+<span class="sel">counter</span>(); <span class="cmt">// 3</span>
+
+<span class="cmt">// Each closure has its own scope</span>
+<span class="kw">const</span> <span class="sel">counter2</span> = <span class="fn">createCounter</span>();
+<span class="sel">counter2</span>(); <span class="cmt">// 1 (separate from counter)</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 13 — THIS
+        ============================================================ -->
+        <section class="section" id="this">
+            <div class="section-num">13 / this Keyword</div>
+            <h2>this</h2>
+            <p>The <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">this</code> keyword refers to the object that is executing the current function. Its value depends on how the function is called.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-crosshairs"></i> this in Different Contexts</div>
+                <div class="memory-diagram">
+                    <div class="memory-box" style="border-color:var(--accent);">
+                        <span class="mem-label"><i class="fas fa-globe"></i> Global</span>
+                        <span class="mem-value">window (browser)</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--box-d);">
+                        <span class="mem-label"><i class="fas fa-box"></i> Object Method</span>
+                        <span class="mem-value">the object itself</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--accent3);">
+                        <span class="mem-label"><i class="fas fa-landmark"></i> Class</span>
+                        <span class="mem-value">the instance</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--accent2);">
+                        <span class="mem-label"><i class="fas fa-arrow-right"></i> Arrow Function</span>
+                        <span class="mem-value">lexical (parent's this)</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--box-e);">
+                        <span class="mem-label"><i class="fas fa-mouse-pointer"></i> Event Listener</span>
+                        <span class="mem-value">the element</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Global context (browser) → window</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>); <span class="cmt">// window</span>
+
+<span class="cmt">// Object method → the object</span>
+<span class="kw">const</span> <span class="sel">obj</span> = {
+  <span class="prop">name</span>: <span class="str">"Alice"</span>,
+  <span class="prop">greet</span>() {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>.<span class="prop">name</span>); <span class="cmt">// "Alice" (this = obj)</span>
+  }
+};
+
+<span class="cmt">// Arrow function → lexical this (parent's this)</span>
+<span class="kw">const</span> <span class="sel">arrow</span> = () => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>); <span class="cmt">// inherits from outer scope</span>
+};
+
+<span class="cmt">// Event listener → the element</span>
+<span class="sel">button</span>.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, <span class="kw">function</span>() {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>); <span class="cmt">// the button element</span>
+});</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 14 — LOOPS
+        ============================================================ -->
+        <section class="section" id="loops">
+            <div class="section-num">14 / Loops</div>
+            <h2>Loops</h2>
+            <p>Loops repeat a block of code. JavaScript has <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">for</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">while</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">do...while</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">for...of</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">for...in</code>.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>for</span><code>for (let i=0; i<5; i++)</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="forDemo">0 1 2 3 4 </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>for...of</span><code>for (const item of arr)</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="forOfDemo">a b c </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>while</span><code>while (condition)</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="whileDemo">0 1 2 3 4 </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// for loop — classic</span>
+<span class="kw">for</span> (<span class="kw">let</span> <span class="sel">i</span> = <span class="num">0</span>; <span class="sel">i</span> &lt; <span class="num">5</span>; <span class="sel">i</span>++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">i</span>); <span class="cmt">// 0,1,2,3,4</span>
+}
+
+<span class="cmt">// for...of — iterates over values</span>
+<span class="kw">const</span> <span class="sel">arr</span> = [<span class="str">'a'</span>, <span class="str">'b'</span>, <span class="str">'c'</span>];
+<span class="kw">for</span> (<span class="kw">const</span> <span class="sel">item</span> <span class="kw">of</span> <span class="sel">arr</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">item</span>); <span class="cmt">// 'a','b','c'</span>
+}
+
+<span class="cmt">// for...in — iterates over object keys</span>
+<span class="kw">const</span> <span class="sel">obj</span> = { <span class="prop">a</span>: <span class="num">1</span>, <span class="prop">b</span>: <span class="num">2</span> };
+<span class="kw">for</span> (<span class="kw">const</span> <span class="sel">key</span> <span class="kw">in</span> <span class="sel">obj</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">key</span>, <span class="sel">obj</span>[<span class="sel">key</span>]);
+}
+
+<span class="cmt">// while loop</span>
+<span class="kw">let</span> <span class="sel">i</span> = <span class="num">0</span>;
+<span class="kw">while</span> (<span class="sel">i</span> &lt; <span class="num">5</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">i</span>);
+  <span class="sel">i</span>++;
+}</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 15 — CONDITIONALS
+        ============================================================ -->
+        <section class="section" id="conditionals">
+            <div class="section-num">15 / Conditionals</div>
+            <h2>Conditionals</h2>
+            <p>Conditionals control the flow of your program. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">if</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">else</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">switch</code>, and the <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">ternary</code> operator.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-label"><span>if / else</span><code>if (score > 60) { ... }</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="ifDemo">✅ You passed! (score: 85)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>Ternary</span><code>condition ? truthy : falsy</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="ternaryDemo">✅ adult</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-label"><span>switch</span><code>switch (day) { case ... }</code></div>
+                    <div class="demo-visual">
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text);">
+                            <span id="switchDemo">📅 Wednesday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// if / else</span>
+<span class="kw">const</span> <span class="sel">score</span> = <span class="num">85</span>;
+<span class="kw">if</span> (<span class="sel">score</span> &gt;= <span class="num">60</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Passed"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Failed"</span>);
+}
+
+<span class="cmt">// Ternary — concise conditional</span>
+<span class="kw">const</span> <span class="sel">status</span> = <span class="sel">score</span> &gt;= <span class="num">60</span> ? <span class="str">"pass"</span> : <span class="str">"fail"</span>;
+
+<span class="cmt">// switch</span>
+<span class="kw">const</span> <span class="sel">day</span> = <span class="num">3</span>;
+<span class="kw">switch</span> (<span class="sel">day</span>) {
+  <span class="kw">case</span> <span class="num">1</span>: <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Monday"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>: <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Tuesday"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>: <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Wednesday"</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>: <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Other"</span>);
+}</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 16 — ERROR HANDLING
+        ============================================================ -->
+        <section class="section" id="errorhandling">
+            <div class="section-num">16 / Error Handling</div>
+            <h2>Error Handling</h2>
+            <p>Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">try...catch</code> to handle errors gracefully. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">throw</code> to create custom errors.</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>try...catch Demo</span>
+                    <code>error handling</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-exclamation-circle"></i> error playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="errorPlayground" rows="6">try {
+                                let result = 10 / 0;
+                                console.log(result); // Infinity
+
+                                // Throw a custom error
+                                if (result === Infinity) {
+                                    throw new Error("Division by zero!");
+                                }
+                            } catch (error) {
+                                console.log("Caught:", error.message);
+                            } finally {
+                                console.log("Cleanup done.");
+                            }</textarea>
+                            <button class="pg-btn" onclick="runErrorPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="errorOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="kw">try</span> {
+  <span class="cmt">// Code that might throw</span>
+  <span class="kw">const</span> <span class="sel">data</span> = <span class="fn">JSON</span>.<span class="fn">parse</span>(<span class="str">'{"invalid":}'</span>);
+} <span class="kw">catch</span> (<span class="sel">error</span>) {
+  <span class="cmt">// Handle the error</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"JSON Error:"</span>, <span class="sel">error</span>.<span class="prop">message</span>);
+} <span class="kw">finally</span> {
+  <span class="cmt">// Always runs</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Cleanup"</span>);
+}
+
+<span class="cmt">// Throw custom errors</span>
+<span class="kw">function</span> <span class="sel">validateAge</span>(<span class="sel">age</span>) {
+  <span class="kw">if</span> (<span class="sel">age</span> &lt; <span class="num">0</span>) {
+    <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"Age cannot be negative"</span>);
+  }
+}</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 17 — CLASSES
+        ============================================================ -->
+        <section class="section" id="classes">
+            <div class="section-num">17 / Classes</div>
+            <h2>Classes</h2>
+            <p>Classes are templates for creating objects. They encapsulate data and behavior. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">class</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">constructor</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">extends</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">super</code>.</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Class Demo</span>
+                    <code>class · extends · super</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-landmark"></i> class playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="classPlayground" rows="8">class Animal {
+                                constructor(name) {
+                                    this.name = name;
+                                }
+                                speak() {
+                                    return `${this.name} makes a sound.`;
+                                }
+                            }
+
+                            class Dog extends Animal {
+                                speak() {
+                                    return `${this.name} barks!`;
+                                }
+                            }
+
+                            const dog = new Dog("Rex");
+                            console.log(dog.speak());</textarea>
+                            <button class="pg-btn" onclick="runClassPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="classOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="kw">class</span> <span class="sel">Person</span> {
+  <span class="fn">constructor</span>(<span class="sel">name</span>, <span class="sel">age</span>) {
+    <span class="kw">this</span>.<span class="prop">name</span> = <span class="sel">name</span>;
+    <span class="kw">this</span>.<span class="prop">age</span> = <span class="sel">age</span>;
+  }
+
+  <span class="fn">greet</span>() {
+    <span class="kw">return</span> <span class="str">`Hi, I'm ${this.name}`</span>;
+  }
+
+  <span class="cmt">// Static method — called on the class itself</span>
+  <span class="kw">static</span> <span class="fn">createAnonymous</span>() {
+    <span class="kw">return</span> <span class="kw">new</span> <span class="fn">Person</span>(<span class="str">"Anonymous"</span>, <span class="num">0</span>);
+  }
+}
+
+<span class="cmt">// Inheritance</span>
+<span class="kw">class</span> <span class="sel">Student</span> <span class="kw">extends</span> <span class="sel">Person</span> {
+  <span class="fn">constructor</span>(<span class="sel">name</span>, <span class="sel">age</span>, <span class="sel">grade</span>) {
+    <span class="kw">super</span>(<span class="sel">name</span>, <span class="sel">age</span>); <span class="cmt">// call parent constructor</span>
+    <span class="kw">this</span>.<span class="prop">grade</span> = <span class="sel">grade</span>;
+  }
+
+  <span class="fn">study</span>() {
+    <span class="kw">return</span> <span class="str">`${this.name} is studying.`</span>;
+  }
+}</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 18 — DOM
+        ============================================================ -->
+        <section class="section" id="dom">
+            <div class="section-num">18 / DOM</div>
+            <h2>DOM Manipulation</h2>
+            <p>The Document Object Model (DOM) is the interface between JavaScript and HTML. Use methods like <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">querySelector()</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">getElementById()</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">closest()</code>.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-tree"></i> DOM Tree</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;padding:1rem 0;font-family:'JetBrains Mono',monospace;font-size:0.8rem;">
+                    <div style="color:var(--accent);"><i class="fas fa-file-alt"></i> document</div>
+                    <div style="color:var(--muted);">│</div>
+                    <div style="color:var(--box-d);">└── &lt;html&gt;</div>
+                    <div style="color:var(--muted);padding-left:1.2rem;">│</div>
+                    <div style="color:var(--accent3);padding-left:1.2rem;">├── &lt;head&gt;</div>
+                    <div style="color:var(--accent3);padding-left:1.2rem;">└── &lt;body&gt;</div>
+                    <div style="color:var(--muted);padding-left:2.4rem;">│</div>
+                    <div style="color:var(--accent2);padding-left:2.4rem;">├── &lt;header&gt;</div>
+                    <div style="color:var(--accent2);padding-left:2.4rem;">├── &lt;main&gt;</div>
+                    <div style="color:var(--accent2);padding-left:2.4rem;">└── &lt;footer&gt;</div>
+                </div>
+                <p style="color:var(--muted);font-size:0.8rem;text-align:center;">The DOM represents your HTML as a tree of objects.</p>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Selectors</span>
+<span class="kw">const</span> <span class="sel">el</span> = <span class="fn">document</span>.<span class="fn">querySelector</span>(<span class="str">'.my-class'</span>);
+<span class="kw">const</span> <span class="sel">el2</span> = <span class="fn">document</span>.<span class="fn">getElementById</span>(<span class="str">'my-id'</span>);
+<span class="kw">const</span> <span class="sel">els</span> = <span class="fn">document</span>.<span class="fn">querySelectorAll</span>(<span class="str">'div'</span>);
+
+<span class="cmt">// Traversal</span>
+<span class="sel">el</span>.<span class="fn">closest</span>(<span class="str">'.container'</span>);
+<span class="sel">el</span>.<span class="prop">parentElement</span>;
+<span class="sel">el</span>.<span class="prop">nextElementSibling</span>;
+
+<span class="cmt">// Manipulation</span>
+<span class="sel">el</span>.<span class="prop">textContent</span> = <span class="str">"New text"</span>;
+<span class="sel">el</span>.<span class="prop">innerHTML</span> = <span class="str">"&lt;strong&gt;bold&lt;/strong&gt;"</span>;
+<span class="sel">el</span>.<span class="fn">classList</span>.<span class="fn">add</span>(<span class="str">'active'</span>);
+<span class="sel">el</span>.<span class="fn">setAttribute</span>(<span class="str">'data-id'</span>, <span class="str">'123'</span>);
+
+<span class="cmt">// Create & append</span>
+<span class="kw">const</span> <span class="sel">newEl</span> = <span class="fn">document</span>.<span class="fn">createElement</span>(<span class="str">'div'</span>);
+<span class="sel">newEl</span>.<span class="prop">textContent</span> = <span class="str">"New element"</span>;
+<span class="fn">document</span>.<span class="prop">body</span>.<span class="fn">appendChild</span>(<span class="sel">newEl</span>);</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 19 — EVENTS
+        ============================================================ -->
+        <section class="section" id="events">
+            <div class="section-num">19 / Events</div>
+            <h2>Events</h2>
+            <p>Events are actions that happen in the browser. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">addEventListener()</code> to listen for events like clicks, keypresses, and form submissions.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-sync-alt"></i> Event Flow: Capturing → Target → Bubbling</div>
+                <div class="diagram-flow">
+                    <div class="node accent">window</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-down"></i></span>
+                    <div class="node blue">document</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-down"></i></span>
+                    <div class="node green">&lt;body&gt;</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-down"></i></span>
+                    <div class="node pink">&lt;button&gt;</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-up"></i></span>
+                    <div class="node green">&lt;body&gt;</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-up"></i></span>
+                    <div class="node blue">document</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-up"></i></span>
+                    <div class="node accent">window</div>
+                </div>
+                <p style="color:var(--muted);font-size:0.8rem;text-align:center;">Events travel down (capturing) then up (bubbling).</p>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Add event listener</span>
+<span class="sel">button</span>.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, () => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'Button clicked!'</span>);
+});
+
+<span class="cmt">// Event object</span>
+<span class="sel">button</span>.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (<span class="sel">event</span>) => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">event</span>.<span class="prop">target</span>);    <span class="cmt">// the element</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">event</span>.<span class="prop">type</span>);     <span class="cmt">// 'click'</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">event</span>.<span class="prop">clientX</span>);   <span class="cmt">// mouse X position</span>
+});
+
+<span class="cmt">// Event delegation — one listener for many elements</span>
+<span class="fn">document</span>.<span class="fn">querySelector</span>(<span class="str">'.list'</span>).<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (<span class="sel">e</span>) => {
+  <span class="kw">if</span> (<span class="sel">e</span>.<span class="prop">target</span>.<span class="fn">matches</span>(<span class="str">'li'</span>)) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'List item clicked:'</span>, <span class="sel">e</span>.<span class="prop">target</span>.<span class="prop">textContent</span>);
+  }
+});
+
+<span class="cmt">// Remove listener</span>
+<span class="kw">function</span> <span class="sel">handler</span>() { <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'clicked'</span>); }
+<span class="sel">button</span>.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, <span class="sel">handler</span>);
+<span class="sel">button</span>.<span class="fn">removeEventListener</span>(<span class="str">'click'</span>, <span class="sel">handler</span>);</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 20 — TIMING
+        ============================================================ -->
+        <section class="section" id="timing">
+            <div class="section-num">20 / Timing Functions</div>
+            <h2>setTimeout · setInterval · requestAnimationFrame</h2>
+            <p>Timing functions let you schedule code execution. <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">setTimeout()</code> runs once after a delay, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">setInterval()</code> runs repeatedly, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">requestAnimationFrame()</code> is for smooth animations.</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Timing Demo</span>
+                    <code>setTimeout · setInterval</code>
+                </div>
+                <div class="demo-visual">
+                    <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+                        <button class="pg-btn" onclick="startTimeoutDemo()" style="background:rgba(108,99,255,0.15);border-color:var(--box-d);color:var(--box-d);"><i class="fas fa-clock"></i> setTimeout (2s)</button>
+                        <button class="pg-btn" onclick="startIntervalDemo()" style="background:rgba(67,233,123,0.15);border-color:var(--accent3);color:var(--accent3);"><i class="fas fa-sync-alt"></i> setInterval</button>
+                        <button class="pg-btn" onclick="stopIntervalDemo()" style="background:rgba(255,101,132,0.15);border-color:var(--accent2);color:var(--accent2);"><i class="fas fa-stop"></i> Stop</button>
+                        <span id="timingOutput" style="font-family:'JetBrains Mono',monospace;color:var(--accent3);min-width:100px;">Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// setTimeout — runs once after delay (ms)</span>
+<span class="kw">const</span> <span class="sel">timeoutId</span> = <span class="fn">setTimeout</span>(() => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'2 seconds later'</span>);
+}, <span class="num">2000</span>);
+
+<span class="cmt">// Clear timeout</span>
+<span class="fn">clearTimeout</span>(<span class="sel">timeoutId</span>);
+
+<span class="cmt">// setInterval — runs repeatedly every delay</span>
+<span class="kw">let</span> <span class="sel">count</span> = <span class="num">0</span>;
+<span class="kw">const</span> <span class="sel">intervalId</span> = <span class="fn">setInterval</span>(() => {
+  <span class="sel">count</span>++;
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Tick ${count}`</span>);
+}, <span class="num">1000</span>);
+
+<span class="cmt">// Clear interval</span>
+<span class="fn">clearInterval</span>(<span class="sel">intervalId</span>);
+
+<span class="cmt">// requestAnimationFrame — for smooth animations</span>
+<span class="kw">function</span> <span class="fn">animate</span>() {
+  <span class="cmt">// update animation</span>
+  <span class="fn">requestAnimationFrame</span>(<span class="sel">animate</span>);
+}
+<span class="fn">requestAnimationFrame</span>(<span class="sel">animate</span>);</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 21 — ASYNCHRONOUS JS
+        ============================================================ -->
+        <section class="section" id="async">
+            <div class="section-num">21 / Asynchronous JavaScript</div>
+            <h2>Async: Callbacks · Promises · Async/Await</h2>
+            <p>JavaScript is single-threaded but can handle async operations using the event loop. Learn the progression: Callbacks → Promises → Async/Await.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-sync-alt"></i> Event Loop</div>
+                <div class="diagram-flow">
+                    <div class="node accent">Call Stack</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node blue">Web APIs</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node green">Callback Queue</div>
+                    <span class="arrow-symbol"><i class="fas fa-arrow-right"></i></span>
+                    <div class="node pink">Event Loop</div>
+                    <span class="arrow-symbol"><i class="fas fa-sync-alt"></i></span>
+                    <div class="node accent">Call Stack</div>
+                </div>
+                <p style="color:var(--muted);font-size:0.8rem;text-align:center;">Async operations go through Web APIs, then the callback queue, and are pushed back by the event loop.</p>
+            </div>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Async/Await Demo</span>
+                    <code>async · await</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-hourglass-half"></i> async playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="asyncPlayground" rows="7">function delay(ms) {
+                                return new Promise(resolve => setTimeout(resolve, ms));
+                            }
+
+                            async function example() {
+                                console.log("Start");
+                                await delay(1000);
+                                console.log("After 1s");
+                                await delay(500);
+                                console.log("After 0.5s more");
+                                return "Done!";
+                            }
+
+                            example().then(console.log);</textarea>
+                            <button class="pg-btn" onclick="runAsyncPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="asyncOutput">// output appears here (with delays)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 22 — PROMISES
+        ============================================================ -->
+        <section class="section" id="promises">
+            <div class="section-num">22 / Promises</div>
+            <h2>Promises</h2>
+            <p>A Promise represents a value that may be available now, later, or never. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.then()</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.catch()</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.finally()</code>.</p>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Creating a Promise</span>
+<span class="kw">const</span> <span class="sel">myPromise</span> = <span class="kw">new</span> <span class="fn">Promise</span>((<span class="sel">resolve</span>, <span class="sel">reject</span>) => {
+  <span class="kw">const</span> <span class="sel">success</span> = <span class="kw">true</span>;
+  <span class="kw">if</span> (<span class="sel">success</span>) {
+    <span class="fn">resolve</span>(<span class="str">"Success!"</span>);
+  } <span class="kw">else</span> {
+    <span class="fn">reject</span>(<span class="str">"Failed!"</span>);
+  }
+});
+
+<span class="cmt">// Using a Promise</span>
+<span class="sel">myPromise</span>
+  .<span class="fn">then</span>(<span class="sel">result</span> => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">result</span>))
+  .<span class="fn">catch</span>(<span class="sel">error</span> => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">error</span>))
+  .<span class="fn">finally</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Done"</span>));
+
+<span class="cmt">// Promise chaining</span>
+<span class="fn">fetch</span>(<span class="str">'/api/data'</span>)
+  .<span class="fn">then</span>(<span class="sel">res</span> => <span class="sel">res</span>.<span class="fn">json</span>())
+  .<span class="fn">then</span>(<span class="sel">data</span> => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">data</span>))
+  .<span class="fn">catch</span>(<span class="sel">err</span> => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">err</span>));
+
+<span class="cmt">// Promise.all — wait for all</span>
+<span class="kw">const</span> <span class="sel">p1</span> = <span class="fn">Promise</span>.<span class="fn">resolve</span>(<span class="num">1</span>);
+<span class="kw">const</span> <span class="sel">p2</span> = <span class="fn">Promise</span>.<span class="fn">resolve</span>(<span class="num">2</span>);
+<span class="kw">const</span> <span class="sel">p3</span> = <span class="fn">Promise</span>.<span class="fn">resolve</span>(<span class="num">3</span>);
+<span class="fn">Promise</span>.<span class="fn">all</span>([<span class="sel">p1</span>, <span class="sel">p2</span>, <span class="sel">p3</span>]).<span class="fn">then</span>(<span class="sel">values</span> => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">values</span>); <span class="cmt">// [1,2,3]</span>
+});</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 23 — FETCH API
+        ============================================================ -->
+        <section class="section" id="fetch">
+            <div class="section-num">23 / Fetch API</div>
+            <h2>Fetch API</h2>
+            <p>The Fetch API provides a modern way to make HTTP requests. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">fetch()</code> with <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.then()</code> or <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">async/await</code>.</p>
+
+            <div class="code-block"><pre>
+<span class="cmt">// GET request with async/await</span>
+<span class="kw">async</span> <span class="kw">function</span> <span class="fn">getData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> <span class="sel">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.example.com/data'</span>);
+    <span class="kw">if</span> (!<span class="sel">response</span>.<span class="prop">ok</span>) {
+      <span class="kw">throw</span> <span class="kw">new</span> <span class="fn">Error</span>(<span class="str">`HTTP error! status: ${response.status}`</span>);
+    }
+    <span class="kw">const</span> <span class="sel">data</span> = <span class="kw">await</span> <span class="sel">response</span>.<span class="fn">json</span>();
+    <span class="kw">return</span> <span class="sel">data</span>;
+  } <span class="kw">catch</span> (<span class="sel">error</span>) {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'Fetch error:'</span>, <span class="sel">error</span>);
+  }
+}
+
+<span class="cmt">// POST request</span>
+<span class="kw">const</span> <span class="sel">postData</span> = <span class="kw">async</span> () => {
+  <span class="kw">const</span> <span class="sel">response</span> = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.example.com/users'</span>, {
+    <span class="prop">method</span>: <span class="str">'POST'</span>,
+    <span class="prop">headers</span>: {
+      <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>
+    },
+    <span class="prop">body</span>: <span class="fn">JSON</span>.<span class="fn">stringify</span>({ <span class="prop">name</span>: <span class="str">'Alice'</span>, <span class="prop">age</span>: <span class="num">25</span> })
+  });
+  <span class="kw">return</span> <span class="kw">await</span> <span class="sel">response</span>.<span class="fn">json</span>();
+};</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 24 — BROWSER STORAGE
+        ============================================================ -->
+        <section class="section" id="storage">
+            <div class="section-num">24 / Browser Storage</div>
+            <h2>Browser Storage</h2>
+            <p>Store data in the browser using <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">localStorage</code>, <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">sessionStorage</code>, and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">cookies</code>.</p>
+
+            <div class="diagram-box">
+                <div class="diagram-title"><i class="fas fa-database"></i> Storage Comparison</div>
+                <div class="memory-diagram">
+                    <div class="memory-box" style="border-color:var(--accent);">
+                        <span class="mem-label"><i class="fas fa-database"></i> localStorage</span>
+                        <span class="mem-value">persistent · ~10MB</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--box-d);">
+                        <span class="mem-label"><i class="fas fa-database"></i> sessionStorage</span>
+                        <span class="mem-value">tab-only · ~5MB</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--accent3);">
+                        <span class="mem-label"><i class="fas fa-cookie"></i> Cookies</span>
+                        <span class="mem-value">4KB · sent to server</span>
+                    </div>
+                    <div class="memory-box" style="border-color:var(--accent2);">
+                        <span class="mem-label"><i class="fas fa-database"></i> IndexedDB</span>
+                        <span class="mem-value">large · async</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// localStorage — persists until cleared</span>
+<span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">'user'</span>, <span class="str">'Alice'</span>);
+<span class="kw">const</span> <span class="sel">user</span> = <span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">'user'</span>);
+<span class="fn">localStorage</span>.<span class="fn">removeItem</span>(<span class="str">'user'</span>);
+<span class="fn">localStorage</span>.<span class="fn">clear</span>();
+
+<span class="cmt">// sessionStorage — persists only for the tab session</span>
+<span class="fn">sessionStorage</span>.<span class="fn">setItem</span>(<span class="str">'temp'</span>, <span class="str">'data'</span>);
+
+<span class="cmt">// Cookies — small, sent with HTTP requests</span>
+<span class="fn">document</span>.<span class="prop">cookie</span> = <span class="str">'theme=dark; path=/; max-age=3600'</span>;
+
+<span class="cmt">// JSON with storage</span>
+<span class="kw">const</span> <span class="sel">obj</span> = { <span class="prop">name</span>: <span class="str">'Bob'</span>, <span class="prop">age</span>: <span class="num">30</span> };
+<span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">'data'</span>, <span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="sel">obj</span>));
+<span class="kw">const</span> <span class="sel">parsed</span> = <span class="fn">JSON</span>.<span class="fn">parse</span>(<span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">'data'</span>));</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 25 — MODULES
+        ============================================================ -->
+        <section class="section" id="modules">
+            <div class="section-num">25 / Modules</div>
+            <h2>ES Modules</h2>
+            <p>Modules let you split code into reusable files. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">export</code> and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">import</code> to share code across files.</p>
+
+            <div class="code-block"><pre>
+<span class="cmt">// --- math.js ---</span>
+<span class="cmt">// Named exports</span>
+<span class="kw">export</span> <span class="kw">function</span> <span class="fn">add</span>(<span class="sel">a</span>, <span class="sel">b</span>) { <span class="kw">return</span> <span class="sel">a</span> + <span class="sel">b</span>; }
+<span class="kw">export</span> <span class="kw">const</span> <span class="sel">PI</span> = <span class="num">3.14159</span>;
+
+<span class="cmt">// Default export</span>
+<span class="kw">export</span> <span class="kw">default</span> <span class="kw">function</span> <span class="fn">multiply</span>(<span class="sel">a</span>, <span class="sel">b</span>) { <span class="kw">return</span> <span class="sel">a</span> * <span class="sel">b</span>; }
+
+<span class="cmt">// --- app.js ---</span>
+<span class="cmt">// Import named exports</span>
+<span class="kw">import</span> { <span class="sel">add</span>, <span class="sel">PI</span> } <span class="kw">from</span> <span class="str">'./math.js'</span>;
+
+<span class="cmt">// Import default export</span>
+<span class="kw">import</span> <span class="sel">multiply</span> <span class="kw">from</span> <span class="str">'./math.js'</span>;
+
+<span class="cmt">// Import everything as a namespace</span>
+<span class="kw">import</span> * <span class="kw">as</span> <span class="sel">math</span> <span class="kw">from</span> <span class="str">'./math.js'</span>;
+<span class="sel">math</span>.<span class="fn">add</span>(<span class="num">2</span>, <span class="num">3</span>);
+
+<span class="cmt">// Dynamic import</span>
+<span class="kw">const</span> <span class="sel">module</span> = <span class="kw">await</span> <span class="kw">import</span>(<span class="str">'./math.js'</span>);</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 26 — REGULAR EXPRESSIONS
+        ============================================================ -->
+        <section class="section" id="regex">
+            <div class="section-num">26 / Regular Expressions</div>
+            <h2>Regular Expressions</h2>
+            <p>Regex is used for pattern matching in strings. Use <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">/pattern/flags</code> and methods like <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.test()</code> and <code style="color:var(--accent3);background:rgba(67,233,123,0.1);padding:0.1rem 0.5rem;border-radius:4px;">.match()</code>.</p>
+
+            <div class="demo-card">
+                <div class="demo-label">
+                    <span>Regex Tester</span>
+                    <code>/pattern/flags</code>
+                </div>
+                <div class="demo-visual">
+                    <div class="playground">
+                        <div class="pg-header">
+                            <span><i class="fas fa-search"></i> regex playground</span>
+                        </div>
+                        <div class="pg-body">
+                            <textarea id="regexPlayground" rows="5">const text = "The price is $19.99 and $5.00";
+                                const regex = /\$[\d.]+/g;
+                                const matches = text.match(regex);
+                                console.log(matches);</textarea>
+                            <button class="pg-btn" onclick="runRegexPlayground()"><i class="fas fa-play"></i> Run</button>
+                            <div class="pg-output" id="regexOutput">// output appears here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Creating regex</span>
+<span class="kw">const</span> <span class="sel">re1</span> = <span class="str">/hello/</span>;
+<span class="kw">const</span> <span class="sel">re2</span> = <span class="kw">new</span> <span class="fn">RegExp</span>(<span class="str">'hello'</span>);
+
+<span class="cmt">// Flags: g (global), i (case-insensitive), m (multiline)</span>
+<span class="kw">const</span> <span class="sel">re</span> = <span class="str">/hello/gi</span>;
+
+<span class="cmt">// Methods</span>
+<span class="sel">re</span>.<span class="fn">test</span>(<span class="str">'hello world'</span>);        <span class="cmt">// true</span>
+<span class="str">'hello world'</span>.<span class="fn">match</span>(<span class="str">/hello/</span>);    <span class="cmt">// ['hello']</span>
+<span class="str">'hello world'</span>.<span class="fn">replace</span>(<span class="str">/world/</span>, <span class="str">'js'</span>); <span class="cmt">// 'hello js'</span>
+<span class="str">'hello world'</span>.<span class="fn">search</span>(<span class="str">/world/</span>);   <span class="cmt">// 6</span>
+
+<span class="cmt">// Character classes</span>
+<span class="str">/\d/</span>  <span class="cmt">// digit</span>
+<span class="str">/\w/</span>  <span class="cmt">// word character</span>
+<span class="str">/\s/</span>  <span class="cmt">// whitespace</span>
+<span class="str">/./</span>   <span class="cmt">// any character</span>
+
+<span class="cmt">// Quantifiers</span>
+<span class="str">/a+/</span>  <span class="cmt">// one or more</span>
+<span class="str">/a*/</span>  <span class="cmt">// zero or more</span>
+<span class="str">/a{2}/</span> <span class="cmt">// exactly 2</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 27 — ES6+
+        ============================================================ -->
+        <section class="section" id="es6">
+            <div class="section-num">27 / Modern ES6+ Features</div>
+            <h2>ES6+ Features</h2>
+            <p>ECMAScript 6 (ES6) and later introduced powerful features that make JavaScript more expressive and easier to work with.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-boxes"></i></div>
+                    <h3>Destructuring</h3>
+                    <p>Unpack values from arrays and objects: <code style="color:var(--accent3);">const {name} = obj</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h3>Spread &amp; Rest</h3>
+                    <p><code style="color:var(--accent3);">...arr</code> spreads, <code style="color:var(--accent3);">...rest</code> collects.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-pen-square"></i></div>
+                    <h3>Template Literals</h3>
+                    <p>Strings with interpolation: <code style="color:var(--accent3);">`Hello ${name}`</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-link"></i></div>
+                    <h3>Optional Chaining</h3>
+                    <p>Safe nested access: <code style="color:var(--accent3);">obj?.prop?.nested</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-question-circle"></i></div>
+                    <h3>Nullish Coalescing</h3>
+                    <p>Default only for null/undefined: <code style="color:var(--accent3);">value ?? 'default'</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h3>Symbol &amp; BigInt</h3>
+                    <p>Unique symbols and large integers.</p>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Destructuring — objects</span>
+<span class="kw">const</span> <span class="sel">user</span> = { <span class="prop">name</span>: <span class="str">'Alice'</span>, <span class="prop">age</span>: <span class="num">25</span> };
+<span class="kw">const</span> { <span class="prop">name</span>, <span class="prop">age</span> } = <span class="sel">user</span>;
+
+<span class="cmt">// Destructuring — arrays</span>
+<span class="kw">const</span> [<span class="sel">first</span>, <span class="sel">second</span>] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+
+<span class="cmt">// Spread — expand</span>
+<span class="kw">const</span> <span class="sel">arr1</span> = [<span class="num">1</span>, <span class="num">2</span>];
+<span class="kw">const</span> <span class="sel">arr2</span> = [...<span class="sel">arr1</span>, <span class="num">3</span>, <span class="num">4</span>]; <span class="cmt">// [1,2,3,4]</span>
+
+<span class="cmt">// Rest — collect</span>
+<span class="kw">const</span> [<span class="sel">head</span>, ...<span class="sel">tail</span>] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="cmt">// head=1, tail=[2,3]</span>
+
+<span class="cmt">// Template literals</span>
+<span class="kw">const</span> <span class="sel">greeting</span> = <span class="str">`Hello, ${name}!`</span>;
+
+<span class="cmt">// Optional chaining</span>
+<span class="kw">const</span> <span class="sel">city</span> = <span class="sel">user</span>?.<span class="prop">address</span>?.<span class="prop">city</span>; <span class="cmt">// undefined if missing</span>
+
+<span class="cmt">// Nullish coalescing</span>
+<span class="kw">const</span> <span class="sel">count</span> = <span class="kw">null</span> ?? <span class="num">0</span>; <span class="cmt">// 0</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 28 — ADVANCED
+        ============================================================ -->
+        <section class="section" id="advanced">
+            <div class="section-num">28 / Advanced JavaScript</div>
+            <h2>Advanced Concepts</h2>
+            <p>Explore the JavaScript engine's internals: Prototype Chain, Map, Set, Proxy, Reflect, Iterators, and Generators.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-link"></i></div>
+                    <h3>Prototype Chain</h3>
+                    <p>Objects inherit from other objects via the prototype chain.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-map"></i></div>
+                    <h3>Map &amp; Set</h3>
+                    <p>Key-value maps and unique-value collections.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-magic"></i></div>
+                    <h3>Proxy &amp; Reflect</h3>
+                    <p>Intercept and define custom behavior for objects.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Iterators &amp; Generators</h3>
+                    <p>Custom iteration with <code style="color:var(--accent3);">function*</code> and <code style="color:var(--accent3);">yield</code>.</p>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Prototype Chain</span>
+<span class="kw">function</span> <span class="fn">Animal</span>(<span class="sel">name</span>) {
+  <span class="kw">this</span>.<span class="prop">name</span> = <span class="sel">name</span>;
+}
+<span class="fn">Animal</span>.<span class="prop">prototype</span>.<span class="fn">speak</span> = <span class="kw">function</span>() {
+  <span class="kw">return</span> <span class="str">`${this.name} speaks`</span>;
+};
+
+<span class="kw">const</span> <span class="sel">dog</span> = <span class="kw">new</span> <span class="fn">Animal</span>(<span class="str">'Rex'</span>);
+<span class="sel">dog</span>.<span class="fn">speak</span>(); <span class="cmt">// 'Rex speaks'</span>
+
+<span class="cmt">// Map — key-value with any key type</span>
+<span class="kw">const</span> <span class="sel">map</span> = <span class="kw">new</span> <span class="fn">Map</span>();
+<span class="sel">map</span>.<span class="fn">set</span>(<span class="str">'key'</span>, <span class="str">'value'</span>);
+<span class="sel">map</span>.<span class="fn">get</span>(<span class="str">'key'</span>);
+
+<span class="cmt">// Set — unique values</span>
+<span class="kw">const</span> <span class="sel">set</span> = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>]); <span class="cmt">// {1,2,3}</span>
+
+<span class="cmt">// Generator — function* with yield</span>
+<span class="kw">function</span>* <span class="fn">counter</span>() {
+  <span class="kw">let</span> <span class="sel">i</span> = <span class="num">0</span>;
+  <span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">yield</span> <span class="sel">i</span>++;
+  }
+}
+<span class="kw">const</span> <span class="sel">gen</span> = <span class="fn">counter</span>();
+<span class="sel">gen</span>.<span class="fn">next</span>().<span class="prop">value</span>; <span class="cmt">// 0</span>
+<span class="sel">gen</span>.<span class="fn">next</span>().<span class="prop">value</span>; <span class="cmt">// 1</span></pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 29 — BROWSER APIS
+        ============================================================ -->
+        <section class="section" id="browserapis">
+            <div class="section-num">29 / Browser APIs</div>
+            <h2>Browser APIs</h2>
+            <p>Modern browsers provide powerful APIs for geolocation, notifications, drag &amp; drop, WebSockets, and more.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-location-dot"></i></div>
+                    <h3>Geolocation API</h3>
+                    <p>Get the user's position: <code style="color:var(--accent3);">navigator.geolocation</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-bell"></i></div>
+                    <h3>Notifications</h3>
+                    <p>Send desktop notifications: <code style="color:var(--accent3);">new Notification()</code></p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-link"></i></div>
+                    <h3>WebSocket</h3>
+                    <p>Real-time bidirectional communication.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-file"></i></div>
+                    <h3>File API</h3>
+                    <p>Read files from the user's device.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-eye"></i></div>
+                    <h3>Intersection Observer</h3>
+                    <p>Lazy load images, infinite scroll.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-clipboard"></i></div>
+                    <h3>Clipboard API</h3>
+                    <p>Read and write to the clipboard.</p>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Geolocation</span>
+<span class="kw">if</span> (<span class="str">'geolocation'</span> <span class="kw">in</span> <span class="sel">navigator</span>) {
+  <span class="sel">navigator</span>.<span class="prop">geolocation</span>.<span class="fn">getCurrentPosition</span>(
+    (<span class="sel">pos</span>) => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">pos</span>.<span class="prop">coords</span>),
+    (<span class="sel">err</span>) => <span class="fn">console</span>.<span class="fn">log</span>(<span class="sel">err</span>)
+  );
+}
+
+<span class="cmt">// Notification</span>
+<span class="kw">if</span> (<span class="str">'Notification'</span> <span class="kw">in</span> <span class="sel">window</span>) {
+  <span class="kw">new</span> <span class="fn">Notification</span>(<span class="str">'Hello!'</span>, { <span class="prop">body</span>: <span class="str">'This is a notification'</span> });
+}
+
+<span class="cmt">// Intersection Observer — lazy loading</span>
+<span class="kw">const</span> <span class="sel">observer</span> = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>((<span class="sel">entries</span>) => {
+  <span class="sel">entries</span>.<span class="fn">forEach</span>(<span class="sel">entry</span> => {
+    <span class="kw">if</span> (<span class="sel">entry</span>.<span class="prop">isIntersecting</span>) {
+      <span class="sel">entry</span>.<span class="prop">target</span>.<span class="prop">src</span> = <span class="sel">entry</span>.<span class="prop">target</span>.<span class="fn">dataset</span>.<span class="prop">src</span>;
+    }
+  });
+});
+<span class="sel">observer</span>.<span class="fn">observe</span>(<span class="sel">img</span>);</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 30 — PERFORMANCE
+        ============================================================ -->
+        <section class="section" id="performance">
+            <div class="section-num">30 / Performance</div>
+            <h2>Performance Tips</h2>
+            <p>Optimize your JavaScript with debouncing, throttling, lazy loading, memoization, and more.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h3>Debounce</h3>
+                    <p>Delay execution until after a pause. Great for search inputs.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-traffic-light"></i></div>
+                    <h3>Throttle</h3>
+                    <p>Limit execution to once per interval. Great for scroll events.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-cubes"></i></div>
+                    <h3>Memoization</h3>
+                    <p>Cache function results for repeated calls with same arguments.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="icon"><i class="fas fa-image"></i></div>
+                    <h3>Lazy Loading</h3>
+                    <p>Load resources only when needed.</p>
+                </div>
+            </div>
+
+            <div class="code-block"><pre>
+<span class="cmt">// Debounce — wait for pause</span>
+<span class="kw">function</span> <span class="fn">debounce</span>(<span class="sel">fn</span>, <span class="sel">delay</span>) {
+  <span class="kw">let</span> <span class="sel">timeout</span>;
+  <span class="kw">return</span> <span class="kw">function</span>(...<span class="sel">args</span>) {
+    <span class="fn">clearTimeout</span>(<span class="sel">timeout</span>);
+    <span class="sel">timeout</span> = <span class="fn">setTimeout</span>(() => <span class="fn">fn</span>.<span class="fn">apply</span>(<span class="kw">this</span>, <span class="sel">args</span>), <span class="sel">delay</span>);
+  };
+}
+
+<span class="cmt">// Throttle — limit rate</span>
+<span class="kw">function</span> <span class="fn">throttle</span>(<span class="sel">fn</span>, <span class="sel">limit</span>) {
+  <span class="kw">let</span> <span class="sel">inThrottle</span>;
+  <span class="kw">return</span> <span class="kw">function</span>(...<span class="sel">args</span>) {
+    <span class="kw">if</span> (!<span class="sel">inThrottle</span>) {
+      <span class="fn">fn</span>.<span class="fn">apply</span>(<span class="kw">this</span>, <span class="sel">args</span>);
+      <span class="sel">inThrottle</span> = <span class="kw">true</span>;
+      <span class="fn">setTimeout</span>(() => <span class="sel">inThrottle</span> = <span class="kw">false</span>, <span class="sel">limit</span>);
+    }
+  };
+}
+
+<span class="cmt">// Memoization — cache results</span>
+<span class="kw">function</span> <span class="fn">memoize</span>(<span class="sel">fn</span>) {
+  <span class="kw">const</span> <span class="sel">cache</span> = <span class="kw">new</span> <span class="fn">Map</span>();
+  <span class="kw">return</span> <span class="kw">function</span>(...<span class="sel">args</span>) {
+    <span class="kw">const</span> <span class="sel">key</span> = <span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="sel">args</span>);
+    <span class="kw">if</span> (<span class="sel">cache</span>.<span class="fn">has</span>(<span class="sel">key</span>)) <span class="kw">return</span> <span class="sel">cache</span>.<span class="fn">get</span>(<span class="sel">key</span>);
+    <span class="kw">const</span> <span class="sel">result</span> = <span class="fn">fn</span>.<span class="fn">apply</span>(<span class="kw">this</span>, <span class="sel">args</span>);
+    <span class="sel">cache</span>.<span class="fn">set</span>(<span class="sel">key</span>, <span class="sel">result</span>);
+    <span class="kw">return</span> <span class="sel">result</span>;
+  };
+}</pre></div>
+        </section>
+
+        <!-- ============================================================
+         SECTION 31 — CHEAT SHEET
+        ============================================================ -->
+        <section class="section" id="cheatsheet">
+            <div class="section-num">31 / Reference</div>
+            <h2>JavaScript Cheat Sheet</h2>
+            <p>Quick reference for JavaScript syntax, concepts, and built-in methods.</p>
+
+            <div class="cheat-sheet">
+                <div class="cheat-group">
+                    <h3><i class="fas fa-box"></i> Variables &amp; Types</h3>
+                    <div class="cheat-row"><span class="cheat-prop">let x = 5</span><span class="cheat-desc">Mutable variable</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">const x = 5</span><span class="cheat-desc">Immutable binding</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">typeof x</span><span class="cheat-desc">Check type</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">"text"</span><span class="cheat-desc">String</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">42, 3.14</span><span class="cheat-desc">Number</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">true, false</span><span class="cheat-desc">Boolean</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">null, undefined</span><span class="cheat-desc">Empty / absent</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">{ }</span><span class="cheat-desc">Object</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">[ ]</span><span class="cheat-desc">Array</span></div>
+                </div>
+
+                <div class="cheat-group">
+                    <h3><i class="fas fa-cogs"></i> Functions &amp; Control</h3>
+                    <div class="cheat-row"><span class="cheat-prop">function fn() { }</span><span class="cheat-desc">Declaration</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">() => { }</span><span class="cheat-desc">Arrow function</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">if (cond) { }</span><span class="cheat-desc">Conditional</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">for (let i of arr)</span><span class="cheat-desc">Iterate values</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">for (let k in obj)</span><span class="cheat-desc">Iterate keys</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">try { } catch(e) { }</span><span class="cheat-desc">Error handling</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">return value</span><span class="cheat-desc">Return from function</span></div>
+                </div>
+
+                <div class="cheat-group">
+                    <h3><i class="fas fa-chart-bar"></i> Array Methods</h3>
+                    <div class="cheat-row"><span class="cheat-prop">arr.push(v)</span><span class="cheat-desc">Add to end</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.pop()</span><span class="cheat-desc">Remove from end</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.map(fn)</span><span class="cheat-desc">Transform each</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.filter(fn)</span><span class="cheat-desc">Select elements</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.reduce(fn, init)</span><span class="cheat-desc">Accumulate</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.find(fn)</span><span class="cheat-desc">Find element</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.includes(v)</span><span class="cheat-desc">Check existence</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">arr.slice(a,b)</span><span class="cheat-desc">Copy portion</span></div>
+                </div>
+
+                <div class="cheat-group">
+                    <h3><i class="fas fa-sync-alt"></i> Async &amp; Modern</h3>
+                    <div class="cheat-row"><span class="cheat-prop">async function fn()</span><span class="cheat-desc">Async function</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">await promise</span><span class="cheat-desc">Wait for promise</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">new Promise((r,e)=>{})</span><span class="cheat-desc">Create promise</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">fetch(url)</span><span class="cheat-desc">HTTP request</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">...spread</span><span class="cheat-desc">Expand iterable</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">...rest</span><span class="cheat-desc">Collect remaining</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">obj?.prop</span><span class="cheat-desc">Optional chaining</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">v ?? default</span><span class="cheat-desc">Nullish coalescing</span></div>
+                </div>
+
+                <div class="cheat-group">
+                    <h3><i class="fas fa-database"></i> Storage &amp; DOM</h3>
+                    <div class="cheat-row"><span class="cheat-prop">localStorage.setItem(k,v)</span><span class="cheat-desc">Store data</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">localStorage.getItem(k)</span><span class="cheat-desc">Get data</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">document.querySelector(s)</span><span class="cheat-desc">Select element</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">el.textContent = t</span><span class="cheat-desc">Set text</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">el.addEventListener(e, fn)</span><span class="cheat-desc">Add listener</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">el.classList.add(c)</span><span class="cheat-desc">Add class</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">document.createElement(t)</span><span class="cheat-desc">Create element</span></div>
+                </div>
+
+                <div class="cheat-group">
+                    <h3><i class="fas fa-search"></i> Regular Expressions</h3>
+                    <div class="cheat-row"><span class="cheat-prop">/pattern/</span><span class="cheat-desc">Create regex</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">/pattern/g</span><span class="cheat-desc">Global flag</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">/pattern/i</span><span class="cheat-desc">Case-insensitive</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">str.match(re)</span><span class="cheat-desc">Find matches</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">str.replace(re, v)</span><span class="cheat-desc">Replace</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">re.test(str)</span><span class="cheat-desc">Test match</span></div>
+                    <div class="cheat-row"><span class="cheat-prop">\d \w \s</span><span class="cheat-desc">Character classes</span></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>JavaScript Complete Visual Guide · Built with <span>♥</span> By <a href="https://www.github.com/BilalBahij-dev" target="_blank" style="color:#fff;text-decoration:none;"><strong>Bilal Ahmad Bahij</strong></a> · 150+ sections · 500+ live examples</p>
+    </footer>
+
+    <!-- =============================================
+         SCRIPTS
+    ============================================= -->
+    <script>
+        // =============================================
+        // SCROLL REVEAL
+        // =============================================
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.08 }
+        );
+        sections.forEach((s) => observer.observe(s));
+
+        // =============================================
+        // NAV ACTIVE HIGHLIGHT
+        // =============================================
+        const navLinks = document.querySelectorAll('nav a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach((sec) => {
+                const top = sec.offsetTop - 120;
+                if (window.scrollY >= top) {
+                    current = sec.getAttribute('id');
+                }
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // =============================================
+        // PLAYGROUND RUNNERS
+        // =============================================
+
+        function runPlayground(textareaId, outputId) {
+            const code = document.getElementById(textareaId).value;
+            const output = document.getElementById(outputId);
+            let logs = [];
+            const originalLog = console.log;
+            console.log = function(...args) {
+                logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' '));
+                originalLog.apply(console, args);
+            };
+            try {
+                const result = eval(`(function() { ${code} })()`);
+                if (result !== undefined && logs.length === 0) {
+                    logs.push(String(result));
+                }
+            } catch (e) {
+                logs.push('❌ ' + e.message);
+            }
+            console.log = originalLog;
+            output.textContent = logs.length ? logs.join('\n') : '// (no output)';
+        }
+
+        function runVarsPlayground() { runPlayground('varsPlayground', 'varsOutput'); }
+        function runTypesPlayground() { runPlayground('typesPlayground', 'typesOutput'); }
+        function runArrayPlayground() { runPlayground('arrayPlayground', 'arrayOutput'); }
+        function runObjectPlayground() { runPlayground('objectPlayground', 'objectOutput'); }
+        function runFunctionPlayground() { runPlayground('functionPlayground', 'functionOutput'); }
+        function runClosurePlayground() { runPlayground('closurePlayground', 'closureOutput'); }
+        function runErrorPlayground() { runPlayground('errorPlayground', 'errorOutput'); }
+        function runClassPlayground() { runPlayground('classPlayground', 'classOutput'); }
+        function runAsyncPlayground() { runPlayground('asyncPlayground', 'asyncOutput'); }
+        function runRegexPlayground() { runPlayground('regexPlayground', 'regexOutput'); }
+
+        // =============================================
+        // TIMING DEMOS
+        // =============================================
+        let intervalId = null;
+
+        function startTimeoutDemo() {
+            const out = document.getElementById('timingOutput');
+            out.textContent = '⏳ Waiting 2s...';
+            setTimeout(() => {
+                out.textContent = '✅ Done! (2s)';
+            }, 2000);
+        }
+
+        function startIntervalDemo() {
+            if (intervalId) return;
+            let count = 0;
+            const out = document.getElementById('timingOutput');
+            intervalId = setInterval(() => {
+                count++;
+                out.textContent = `🔄 Tick #${count}`;
+            }, 1000);
+        }
+
+        function stopIntervalDemo() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+                document.getElementById('timingOutput').textContent = '⏹️ Stopped';
+            }
+        }
+
+        // =============================================
+        // RANDOM MATH DEMO
+        // =============================================
+        document.getElementById('randomVal').textContent = Math.random().toFixed(4);
+
+        // =============================================
+        // LOOP DEMOS — populate on load
+        // =============================================
+        (function initLoopDemos() {
+            // for loop
+            let forRes = '';
+            for (let i = 0; i < 5; i++) forRes += i + ' ';
+            document.getElementById('forDemo').textContent = forRes;
+
+            // for...of
+            let ofRes = '';
+            for (const c of ['a', 'b', 'c']) ofRes += c + ' ';
+            document.getElementById('forOfDemo').textContent = ofRes;
+
+            // while
+            let whileRes = '';
+            let w = 0;
+            while (w < 5) { whileRes += w + ' ';
+                w++; }
+            document.getElementById('whileDemo').textContent = whileRes;
+
+            // if demo
+            const score = 85;
+            document.getElementById('ifDemo').textContent = score >= 60 ? '✅ You passed! (score: ' + score + ')' :
+                '❌ You failed. (score: ' + score + ')';
+
+            // ternary demo
+            const age = 22;
+            document.getElementById('ternaryDemo').textContent = age >= 18 ? '✅ adult' : '❌ minor';
+
+            // switch demo
+            const day = 3;
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            document.getElementById('switchDemo').textContent = '📅 ' + (days[day - 1] || 'Unknown');
+        })();
+
+        // =============================================
+        // KEYBOARD SHORTCUT: Ctrl+Enter to run active playground
+        // =============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                const active = document.activeElement;
+                if (active && active.tagName === 'TEXTAREA') {
+                    const id = active.id;
+                    const map = {
+                        'varsPlayground': runVarsPlayground,
+                        'typesPlayground': runTypesPlayground,
+                        'arrayPlayground': runArrayPlayground,
+                        'objectPlayground': runObjectPlayground,
+                        'functionPlayground': runFunctionPlayground,
+                        'closurePlayground': runClosurePlayground,
+                        'errorPlayground': runErrorPlayground,
+                        'classPlayground': runClassPlayground,
+                        'asyncPlayground': runAsyncPlayground,
+                        'regexPlayground': runRegexPlayground,
+                    };
+                    if (map[id]) map[id]();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
