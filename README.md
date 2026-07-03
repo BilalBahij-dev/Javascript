@@ -77,8 +77,9 @@ This project solves that by bringing everything into one **visual, interactive, 
 ## 🖥️ Live Preview
 
 <p align="center">
-  <img src="https://via.placeholder.com/800x450/0a0a0f/6c63ff?text=JavaScript+Visual+Guide" width="48%">
-  <img src="https://via.placeholder.com/800x450/0a0a0f/43e97b?text=Interactive+Learning+UI" width="48%">
+  <img src="Js.jpg" width="48%">
+  <img src="Js1.jpg" width="48%">
+  <img src="Js2.jpg" width="48%">
 </p>
 
 ---
