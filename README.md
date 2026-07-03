@@ -79,7 +79,7 @@ This project solves that by bringing everything into one **visual, interactive, 
 <p align="center">
   <img src="Js.jpg" width="100%">
   <img src="Js1.jpg" width="48%">
-  <img src="Js2.jpg" width="48%">
+  <img src="js2.jpg" width="48%">
 </p>
 
 ---
